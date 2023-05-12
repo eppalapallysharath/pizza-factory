@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import {
   addToCart,
   fetchProduct,
-  deleteFromCart,
   removeProduct,
 } from "../../Redux/Actions/ProductActions";
 import { Button } from "react-bootstrap";
@@ -25,7 +24,7 @@ const ProductDetails = () => {
     topping: "",
     extras: "",
   });
-  const [isCart, setIsCart] = useState(false);
+  // const [isCart, setIsCart] = useState(false);
 
   const product = useSelector((state) => state.productR.productDescription);
   const pizzaAddons = useSelector((state) => state.productR.productAddons);
@@ -47,13 +46,13 @@ const ProductDetails = () => {
     cart?.productPrice > 0
       ? dispatch(addToCart(cart))
       : alert("Select at least one option (price)");
-    setIsCart(true);
+    // setIsCart(true);
   };
-  const handleRemoveFromCart = (e) => {
-    e.preventDefault();
-    dispatch(deleteFromCart(id));
-    setIsCart(false);
-  };
+  // const handleRemoveFromCart = (e) => {
+  //   e.preventDefault();
+  //   dispatch(deleteFromCart(id));
+  //   // setIsCart(false);
+  // };
   const overallPrice =
     itemPrice?.price * 1 + itemPrice?.topping * 1 + itemPrice?.extras * 1;
   useEffect(() => {
@@ -187,7 +186,7 @@ const ProductDetails = () => {
                 ))}
               </div>
             </div>
-            {isCart ? (
+            {/* {isCart ? (
               <div className="product-button">
                 <Button
                   type="button"
@@ -209,7 +208,18 @@ const ProductDetails = () => {
                   ADD TO CART ₹{overallPrice}
                 </Button>
               </div>
-            )}
+            )} */}
+            <div className="product-button">
+              <Button
+                type="button"
+                variant="success"
+                onClick={handleAddToCart}
+                className="add-to-cart-button"
+              >
+                <FaShoppingCart />
+                ADD TO CART ₹{overallPrice}
+              </Button>
+            </div>
           </div>
         </div>
       ) : (

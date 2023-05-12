@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignUp.css";
+import { useDispatch } from "react-redux";
+import { signUpAction } from "../../../Redux/Actions/UserActions";
 
 const SignUp = () => {
+  const [newUser, setNewUser] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+  const handleSignUpChange = (e) => {
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
+
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign Up Data:");
-    // Add your sign up logic here
+    dispatch(signUpAction(newUser));
   };
 
   return (
@@ -15,24 +26,24 @@ const SignUp = () => {
         <form onSubmit={handleSignUpSubmit}>
           <input
             type="text"
-            name="name"
+            name="username"
             placeholder="Name"
-            //   value={signUpData.name}
-            //   onChange={handleSignUpChange}
+            value={newUser.username}
+            onChange={handleSignUpChange}
           />
           <input
             type="email"
             name="email"
             placeholder="Email"
-            //   value={signUpData.email}
-            //   onChange={handleSignUpChange}
+            value={newUser.email}
+            onChange={handleSignUpChange}
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
-            //   value={signUpData.password}
-            //   onChange={handleSignUpChange}
+            value={newUser.password}
+            onChange={handleSignUpChange}
           />
           <button type="submit">Sign Up</button>
         </form>

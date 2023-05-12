@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "./SignIn.css";
+import { useDispatch } from "react-redux";
+import { loginAction } from "../../../Redux/Actions/UserActions";
 
 const SignIn = () => {
+  const initialValues = { email: "", password: "" };
+  const [user, setUser] = useState(initialValues);
+  const dispatch = useDispatch();
+
+  const handleSignInChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
+
+  console.log(user);
   const handleSignInSubmit = (e) => {
     e.preventDefault();
-    console.log("Sign In Data:");
-    // Add your sign in logic here
+    dispatch(loginAction(user));
   };
 
   return (
@@ -17,15 +28,15 @@ const SignIn = () => {
             type="email"
             name="email"
             placeholder="Email"
-            //   value={signInData.email}
-            //   onChange={handleSignInChange}
+            value={user.email}
+            onChange={handleSignInChange}
           />
           <input
             type="password"
             name="password"
             placeholder="Password"
-            //   value={signInData.password}
-            //   onChange={handleSignInChange}
+            value={user.password}
+            onChange={handleSignInChange}
           />
           <button type="submit">Sign In</button>
         </form>
