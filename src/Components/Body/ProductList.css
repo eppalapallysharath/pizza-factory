@@ -1,0 +1,15 @@
+.main-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 50px;
+  justify-content: space-evenly;
+  gap: 50px 0px;
+}
+.card {
+  padding: 20px;
+  text-align: center;
+  width: 17em;
+  align-items: center;
+  margin-left: 55px;
+  box-shadow: 2px 5px 20px grey;
+}

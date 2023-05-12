@@ -1,0 +1,8 @@
+.navbar {
+  background: #174c9f;
+}
+.navbar-brand > img {
+  border-radius: 5px;
+  width: 130px;
+  height: 35px;
+}
