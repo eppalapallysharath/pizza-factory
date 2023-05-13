@@ -46,7 +46,7 @@ const Header = () => {
             <FaShoppingCart />
             <sup>{cartData}</sup>
           </Button>
-          {Object.values(userData).length > 0 ? (
+          {Object.values(userData)?.length > 0 ? (
             <Button
               variant="secondary"
               onClick={() => dispatch(logoutAction())}
