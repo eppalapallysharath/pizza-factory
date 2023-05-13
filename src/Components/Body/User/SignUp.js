@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import "./SignUp.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { signUpAction } from "../../../Redux/Actions/UserActions";
+import "./SignUp.css";
 
 const SignUp = () => {
   const [newUser, setNewUser] = useState({
@@ -10,6 +10,8 @@ const SignUp = () => {
     password: "",
   });
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.userR.users);
+  console.log(user);
   const handleSignUpChange = (e) => {
     setNewUser({ ...newUser, [e.target.name]: e.target.value });
   };
@@ -17,6 +19,7 @@ const SignUp = () => {
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
     dispatch(signUpAction(newUser));
+    setNewUser({ username: "", email: "", password: "" });
   };
 
   return (
@@ -27,23 +30,30 @@ const SignUp = () => {
           <input
             type="text"
             name="username"
-            placeholder="Name"
+            placeholder="Enter Username"
             value={newUser.username}
             onChange={handleSignUpChange}
+            required
+            minLength="5"
+            maxLength="10"
           />
           <input
             type="email"
             name="email"
-            placeholder="Email"
+            placeholder="Enter Email"
             value={newUser.email}
             onChange={handleSignUpChange}
+            required
+            minLength="5"
           />
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Enter Password"
             value={newUser.password}
             onChange={handleSignUpChange}
+            required
+            minLength="8"
           />
           <button type="submit">Sign Up</button>
         </form>

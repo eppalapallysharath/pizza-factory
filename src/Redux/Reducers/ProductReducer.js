@@ -1,28 +1,9 @@
 const initialState = {
-  products: [],
-  productDescription: [],
-  productAddons: {},
   cart: [],
 };
 
 export const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case "PRODUCTS_LIST":
-      return { ...state, products: action.payload };
-
-    case "PRODUCT":
-      return {
-        ...state,
-        productDescription: action.payload,
-      };
-    case "REMOTE_PRODUCT":
-      return {};
-
-    case "ADD_ONS":
-      return {
-        ...state,
-        productAddons: action.payload,
-      };
     case "ADD_TO_CART":
       const check = state.cart.some(
         (val) => val.productId === action.payload.productId
@@ -33,6 +14,7 @@ export const productReducer = (state = initialState, action) => {
         let data = {
           ...action.payload,
           quantity: 1,
+          isCart: true,
         };
         state.cart.push(data);
       }
@@ -64,6 +46,8 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         cart: state.cart.filter((pizza) => pizza.productId !== action.payload),
       };
+    // case "REMOVE_PRODUCT":
+    //   return {};
     default:
       return state;
   }

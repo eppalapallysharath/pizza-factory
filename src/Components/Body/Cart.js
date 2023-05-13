@@ -7,15 +7,18 @@ import {
   cartIncrement,
   deleteFromCart,
 } from "../../Redux/Actions/ProductActions";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const data = useSelector((state) => state.productR.cart);
-
-  const orderSummary = data?.reduce(
+  const cartPrice = data.reduce(
     (total, item) => total + item.productPrice * item.quantity,
-    50
+    0
   );
+  const ShippingCharges = 50;
+  const orderSummary = cartPrice + ShippingCharges;
 
   return (
     <div className="cart-container">
@@ -23,13 +26,16 @@ const Cart = () => {
         {data.length > 0 ? (
           <>
             <h2>Cart Items</h2>
-            {data?.map((item) => (
-              <div key={item.id} className="cart-item">
-                <div className="product-details">
+            {data?.map((item, index) => (
+              <div className="cart-item" key={index}>
+                <div
+                  className="product-details"
+                  onClick={() => navigate(`/productsDetails/${item.productId}`)}
+                >
                   <img src={item.productImage} alt={item.productName} />
-                  <div>
+                  <div className="product-name">
                     <p>{item.productName}</p>
-                    <p>${item.productPrice * item.quantity}</p>
+                    <p>₹ {item.productPrice * item.quantity}</p>
                   </div>
                 </div>
                 <div className="quantity">
@@ -67,8 +73,12 @@ const Cart = () => {
       <div className="order-summary">
         <h2>Order Summary</h2>
         <p>No. of Products: {data?.length}</p>
+        <p>Cart Price: ₹ {cartPrice}</p>
         <p>Shipping Charges: ₹ 50</p>
-        <p>Total: ${orderSummary}</p>
+        <p>
+          Total: ₹
+          {data?.length > 0 ? <span>{orderSummary}</span> : <span>0</span>}
+        </p>
         <Button>Checkout</Button>
       </div>
     </div>

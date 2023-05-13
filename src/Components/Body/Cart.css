@@ -2,7 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 20px;
+  background: beige;
+  padding: 20px;
 }
 
 .cart-items {
@@ -20,6 +21,7 @@
   padding: 20px;
   background: #fdedec;
   border-radius: 15px;
+  font-weight: bold;
 }
 
 .cart-item {
@@ -33,6 +35,10 @@
   display: flex;
   align-items: center;
   width: 25rem;
+  cursor: pointer;
+}
+.product-name {
+  font-weight: bold;
 }
 
 .product-details img {

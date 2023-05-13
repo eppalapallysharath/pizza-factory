@@ -1,7 +1,10 @@
-.main-container {
+.main-productList-container {
+  background: beige;
+  padding: 12px;
+}
+.productList-container {
   display: grid;
   grid-template-columns: auto auto auto auto;
-  gap: 50px;
   justify-content: space-evenly;
   gap: 50px 0px;
 }
@@ -12,4 +15,16 @@
   align-items: center;
   margin-left: 55px;
   box-shadow: 2px 5px 20px grey;
+  cursor: pointer;
+}
+.productList-filter > .btn:first-child {
+  background-color: #ffc107;
+  outline: white;
+}
+.productList-filter > .btn {
+  background-color: #be0d40;
+  outline: auto;
+}
+.productList-filter > .btn:hover {
+  background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);
 }

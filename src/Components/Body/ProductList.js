@@ -1,24 +1,25 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsList } from "../../Redux/Actions/ProductActions";
+import React, { useState } from "react";
 import { Button, Card, Carousel, Spinner } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import carousel1 from "../../Assets/carsouel/Hundo Pizza.webp";
-import carousel2 from "../../Assets/carsouel/top-view-pepperoni-pizza-sliced-into-six-slices.jpg";
-import carousel3 from "../../Assets/carsouel/top-view-pepperoni-pizza-sliced-into-six-slices.jpg";
+import { data } from "../Data/pizzadata";
+import carousel1 from "../../Assets/carousel/Hundo Pizza.webp";
+import carousel2 from "../../Assets/carousel/top-view-pepperoni-pizza-sliced-into-six-slices.jpg";
+import carousel3 from "../../Assets/carousel/top-view-pepperoni-pizza-sliced-into-six-slices.jpg";
 import "./ProductList.css";
 
 const ProductList = () => {
-  const dispatch = useDispatch();
+  const pizzasData = data.pizza;
+  const [filterData, setFilterData] = useState(pizzasData);
   const navigate = useNavigate();
-  const productList = useSelector((state) => state?.productR?.products);
-  useEffect(() => {
-    dispatch(fetchProductsList());
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
+  const handleFilter = (value) => {
+    const update = pizzasData.filter((product) => product.vegetarian === value);
+    setFilterData(update);
+  };
+
   return (
-    <>
-      <Carousel className="my-2 mx-1">
+    <div className="main-productList-container">
+      <Carousel>
         <Carousel.Item>
           <img
             className="d-block w-100"
@@ -44,13 +45,38 @@ const ProductList = () => {
           />
         </Carousel.Item>
       </Carousel>
-      {productList.length > 0 ? (
+
+      {data?.pizza?.length > 0 ? (
         <>
-          <div>
-            <h3 className="text-center">GRAB THE PIZZA</h3>
+          {/* <div>
+            <h3 className="text-center">TASTE DELICIOUS PIZZA FROM US</h3>
+          </div> */}
+          <div className="my-3 d-flex justify-content-center productList-filter">
+            <Button
+              type="button"
+              variant="warning"
+              className="mx-2"
+              onClick={() => setFilterData(pizzasData)}
+            >
+              ALL
+            </Button>
+            <Button
+              type="button"
+              className="mx-2"
+              onClick={() => handleFilter(true)}
+            >
+              VEG PIZZA
+            </Button>
+            <Button
+              type="button"
+              className="mx-2"
+              onClick={() => handleFilter(false)}
+            >
+              NON VEG PIZZA
+            </Button>
           </div>
-          <div className="main-container">
-            {productList?.map((item) => (
+          <div className="productList-container">
+            {filterData.map((item) => (
               <Card
                 key={item.id}
                 onClick={() => navigate(`/productsDetails/${item.id}`)}
@@ -80,7 +106,7 @@ const ProductList = () => {
           Loading PIZZA...
         </Button>
       )}
-    </>
+    </div>
   );
 };
 
