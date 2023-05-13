@@ -19,6 +19,7 @@ const SignUp = () => {
   const handleSignUpSubmit = (e) => {
     e.preventDefault();
     dispatch(signUpAction(newUser));
+    alert("Registered successfully");
     setNewUser({ username: "", email: "", password: "" });
   };
 

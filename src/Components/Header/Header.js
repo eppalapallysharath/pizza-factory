@@ -46,14 +46,7 @@ const Header = () => {
             <FaShoppingCart />
             <sup>{cartData}</sup>
           </Button>
-          {Object.values(userData)?.length > 0 ? (
-            <Button
-              variant="secondary"
-              onClick={() => dispatch(logoutAction())}
-            >
-              Logout
-            </Button>
-          ) : (
+          {userData.username === undefined ? (
             <div className="">
               <NavLink
                 to="/signUp"
@@ -76,6 +69,13 @@ const Header = () => {
                 Sign In
               </NavLink>
             </div>
+          ) : (
+            <Button
+              variant="secondary"
+              onClick={() => dispatch(logoutAction())}
+            >
+              Logout
+            </Button>
           )}
         </Navbar.Collapse>
       </Container>
